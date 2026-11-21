@@ -7,8 +7,8 @@ using UnityEngine;
 namespace WildCards
 {
     // ---------------------------------------------------------------- SWITCHEROO
-    /// Telegraphed, dodgeable swap. Block -> a line locks between your spot and your last attacker's spot.
-    /// After WindUp, if the target is still near their marked spot, you swap: you land on their mark, they land on yours.
+    /// Telegraphed swap. Block -> a live link to your last attacker; after WindUp you swap unless they are blocking.
+
     public class SwitcherooCard : WildCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
@@ -27,7 +27,8 @@ namespace WildCards
         {
             return new CardInfoStat[] {
                 Stat(true, "Block", "Swap places"),
-                Stat(false, "Swap delay", "0.6s, dodgeable"),
+                Stat(false, "Swap delay", "0.6s"),
+                Stat(false, "Target blocks", "Cancels swap"),
                 Stat(false, "Block cooldown", "+0.5s")
             };
         }
@@ -36,7 +37,7 @@ namespace WildCards
     public class SwitcherooEffect : StackEffect
     {
         public const float WindUp = 0.6f;
-        public const float DodgeRadius = 1.6f;
+
         public float lastHitTime = -100f;
         float cooldownUntil;
 
@@ -177,36 +178,49 @@ namespace WildCards
             }
         }
 
+        const float BlockWindow = 0.3f;   // a block started this recently still counts at the swap moment
+
         void Update()
         {
             age += Time.deltaTime;
 
-            // The target's owner judges the dodge (it knows where its player really is).
+            // Live link: follows both players until the swap resolves.
+            if (endAge < 0f)
+            {
+                if (holder != null && holder.gameObject.activeInHierarchy) a = holder.transform.position;
+                if (target != null && target.gameObject.activeInHierarchy) b = target.transform.position;
+                line.SetPosition(0, new Vector3(a.x, a.y, 0f));
+                line.SetPosition(1, new Vector3(b.x, b.y, 0f));
+                Circle(ringA, a, 0.7f);
+            }
+
+            // At the swap moment the target's owner decides: blocking right now cancels it.
             if (!judged && age >= SwitcherooEffect.WindUp)
             {
                 judged = true;
                 if (Fx.IsMine(target))
                 {
-                    bool hit = holder != null && target != null && !holder.data.dead && !target.data.dead
-                        && Vector2.Distance(target.transform.position, b) <= SwitcherooEffect.DodgeRadius;
+                    Block bl = target.data.block;
+                    bool blocking = bl != null && (bl.IsBlocking() || bl.sinceBlock < BlockWindow);
+                    bool hit = holder != null && !holder.data.dead && !target.data.dead && !blocking;
                     SwitcherooNet.SendResolve(holder != null ? holder.playerID : -1, target.playerID, a, b, hit);
                 }
             }
 
             if (endAge >= 0f)
             {
-                // Short result flash: white burst on swap, grey fizzle on dodge.
+                // Short result flash: white burst on swap, grey fizzle when blocked.
                 float k = Mathf.Clamp01((age - endAge) / 0.25f);
                 Color c = hitResult ? new Color(1f, 1f, 1f, 1f - k) : new Color(0.5f, 0.5f, 0.55f, 0.6f * (1f - k));
                 Paint(c);
-                Circle(ring, b, SwitcherooEffect.DodgeRadius * (hitResult ? 1f + k : 1f));
+                Circle(ring, b, 1.1f * (hitResult ? 1f + k : 1f));
                 if (k >= 1f) Destroy(gameObject);
                 return;
             }
 
-            // Wind-up: the dodge ring shrinks toward the mark, line pulses.
+            // Wind-up: countdown ring around the target closes in on them; line pulses.
             float p = Mathf.Clamp01(age / SwitcherooEffect.WindUp);
-            Circle(ring, b, Mathf.Lerp(SwitcherooEffect.DodgeRadius * 1.8f, SwitcherooEffect.DodgeRadius, p));
+            Circle(ring, b, Mathf.Lerp(3f, 1.1f, p));
             float pulse = 0.55f + 0.45f * Mathf.Abs(Mathf.Sin(age * 18f));
             Paint(new Color(0.75f, 0.95f, 1f, pulse));
 
