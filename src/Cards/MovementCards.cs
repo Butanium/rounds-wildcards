@@ -13,6 +13,7 @@ namespace WildCards
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             gun.reloadTimeAdd = 0.25f;
+            gun.ammo = 1;
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         { Fx.Add<RocketJumpEffect>(player, gun, gunAmmo); }
@@ -27,6 +28,7 @@ namespace WildCards
             return new CardInfoStat[] {
                 Stat(true, "Recoil", "Huge"),
                 Stat(true, "Air jumps from recoil", "+1"),
+                Stat(true, "Ammo", "+1"),
                 Stat(false, "Reload time", "+0.25s")
             };
         }

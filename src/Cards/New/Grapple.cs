@@ -155,6 +155,16 @@ namespace WildCards.Grapple
             }
         }
 
+        /// 0 = just used, 1 = ready. Owner-side only.
+        public float Readiness { get { return cooldown <= 0f ? 1f : 1f - cooldown / Cooldown; } }
+        public bool OnCooldown { get { return cooldown > 0f; } }
+
+        public override void Init()
+        {
+            if (IsMine && GetComponent<GrappleCooldownUI>() == null)
+                gameObject.AddComponent<GrappleCooldownUI>().effect = this;
+        }
+
         public void ResetState(bool startCooldown)
         {
             state = St.Idle;
@@ -337,6 +347,69 @@ namespace WildCards.Grapple
 
     /// Per-client rope drawing, driven by GrappleNet RPCs. Lives on the player GameObject;
     /// the drawn objects live in a separate root so player scale/flip never affects them.
+    /// Owner-only cooldown ring above the player's head: fills while the hook recharges, flashes when ready.
+    public class GrappleCooldownUI : MonoBehaviour
+    {
+        public GrappleEffect effect;
+        const int Segments = 28;
+        const float Radius = 0.42f;
+        LineRenderer back, fill;
+        bool wasCooling;
+        float flash;
+
+        void Start()
+        {
+            GameObject root = new GameObject("WildCards_GrappleCooldown");
+            root.transform.SetParent(transform, false);
+            back = GrappleNet.MakeLine(root.transform, "cdBack", 0.09f, new Color(1f, 1f, 1f, 0.25f), 53);
+            fill = GrappleNet.MakeLine(root.transform, "cdFill", 0.11f, Color.white, 54);
+            back.loop = true;
+            back.positionCount = Segments;
+        }
+
+        void LateUpdate()
+        {
+            if (back == null) return;
+            bool alive = effect != null && effect.data != null && !effect.data.dead;
+            bool cooling = alive && effect.OnCooldown;
+            if (wasCooling && !cooling && alive) flash = 0.35f;   // just became ready
+            wasCooling = cooling;
+            if (flash > 0f) flash -= Time.deltaTime;
+
+            bool show = cooling || flash > 0f;
+            back.enabled = show;
+            fill.enabled = show;
+            if (!show) return;
+
+            float s = Mathf.Max(transform.localScale.y, 0.5f);
+            Vector3 c = transform.position + new Vector3(0f, 1.35f * s, 0f);
+            c.z = 0f;
+            float r = Radius * (flash > 0f ? 1f + (0.35f - flash) * 1.5f : 1f);
+
+            for (int i = 0; i < Segments; i++)
+            {
+                float a = Mathf.PI * 0.5f - i * Mathf.PI * 2f / Segments;
+                back.SetPosition(i, c + new Vector3(Mathf.Cos(a), Mathf.Sin(a), 0f) * r);
+            }
+
+            float frac = flash > 0f ? 1f : effect.Readiness;
+            int n = Mathf.Max(2, Mathf.CeilToInt(frac * Segments) + 1);
+            fill.positionCount = n;
+            for (int i = 0; i < n; i++)
+            {
+                float a = Mathf.PI * 0.5f - (frac * Mathf.PI * 2f) * i / (n - 1);
+                fill.SetPosition(i, c + new Vector3(Mathf.Cos(a), Mathf.Sin(a), 0f) * r);
+            }
+            Color col = flash > 0f ? new Color(0.6f, 1f, 0.7f, flash / 0.35f) : new Color(1f, 1f, 1f, 0.9f);
+            fill.startColor = col; fill.endColor = col;
+        }
+
+        void OnDestroy()
+        {
+            if (back != null) Destroy(back.transform.parent.gameObject);
+        }
+    }
+
     public class GrappleVisual : MonoBehaviour
     {
         public Player player;
