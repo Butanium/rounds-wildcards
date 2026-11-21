@@ -14,7 +14,7 @@
 | SWITCHEROO | Blocking locks a line between you and whoever hurt you in the last 5s. 0.6s later you swap places, unless they dodged out of their marked spot. |
 | METEOR | Hold down in the air to dive. Landing sends out a shockwave that damages and launches nearby enemies. |
 | ROCKET JUMP | Shooting pushes you away from your aim. Shoot the floor to fly. |
-| BALLOON ROUNDS | Hits pop enemies upward and make them float briefly. |
+| BALLOON ROUNDS | Hits pop enemies high into the air and make them float upward for 1.3s. |
 | BOOMERANG | Bullets turn around at walls (or after a moment) and fly back to you through terrain, +30% damage. Catch them to get the ammo back. |
 
 ## Install (players)

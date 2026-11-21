@@ -147,7 +147,6 @@ namespace WildCards
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            gun.damage = 0.85f;
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         { Fx.Add<BalloonEffect>(player, gun, gunAmmo); }
@@ -160,8 +159,8 @@ namespace WildCards
         protected override CardInfoStat[] GetStats()
         {
             return new CardInfoStat[] {
-                Stat(true, "Float on hit", "0.9s"),
-                Stat(false, "Damage", "-15%")
+                Stat(true, "Pop on hit", "Big"),
+                Stat(true, "Float on hit", "1.3s")
             };
         }
     }
@@ -175,7 +174,7 @@ namespace WildCards
             if (n <= 0 || !Fx.IsMine(victim) || victim.data.dead) return;
             FloatDebuff f = victim.GetComponent<FloatDebuff>();
             if (f == null) f = victim.gameObject.AddComponent<FloatDebuff>();
-            f.Apply(0.9f + 0.4f * (n - 1));
+            f.Apply(1.3f + 0.4f * (n - 1));
         }
     }
 
@@ -202,7 +201,7 @@ namespace WildCards
                 timeLeft = 0f;
                 // Pop: like a jump, but a bit stronger.
                 Vector2 v = Fx.GetVel(data);
-                float pop = Fx.JumpVel(data.player) * 0.9f;
+                float pop = Fx.JumpVel(data.player) * 1.3f;
                 if (v.y < pop) v.y = pop;
                 Fx.SetVel(data, v);
                 data.isGrounded = false;
@@ -218,7 +217,7 @@ namespace WildCards
             data.sinceGrounded = 0f;
             Vector2 v = Fx.GetVel(data);
             // PlayerVelocity pulls down 20/s^2; cancel it and drift up gently.
-            v.y += (20f + 6f) * Time.fixedDeltaTime * TimeHandler.timeScale;
+            v.y += (20f + 12f) * Time.fixedDeltaTime * TimeHandler.timeScale;
             Fx.SetVel(data, v);
         }
 
