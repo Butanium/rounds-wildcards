@@ -13,7 +13,7 @@ namespace WildCards
     {
         public const string ModId = "com.wildcards.rounds.cards";
         public const string ModName = "WildCards";
-        public const string Version = "1.3.3";
+        public const string Version = "1.3.4";
         public const string ModInitials = "WILD";
 
         public static WildCardsPlugin instance;
