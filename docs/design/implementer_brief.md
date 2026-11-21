@@ -6,7 +6,7 @@ scratchpad = `C:\Users\dumas\AppData\Local\Temp\claude\29a6498a8035faa6\05a980fb
 ## Hard rules
 - **Write ONLY your own file** `src/Cards/New/<Name>.cs`. Do NOT edit any other file (other agents work in parallel). If you truly need a core change, describe it in your report instead.
 - **Put everything in your own namespace** `namespace WildCards.<Name> { ... }` (e.g. `WildCards.Portal`) so helper class names never collide. Add `using WildCards;`.
-- Compile check: `CARD=<Name> bash C:/Users/dumas/claude/rounds-wildcards/build.sh` (compiles core + old cards + only your file). Must print BUILD OK. Iterate until it does.
+- Compile check: `CARD=<Name> bash <repo>/build.sh` (compiles core + old cards + only your file). Must print BUILD OK. Iterate until it does.
 - **C# 5 only** (.NET Framework csc): no `$""`, no `?.`, no `nameof` (use string literals), no `=>` members, no auto-property initializers, no `out var`, no tuples, no pattern matching, no `using static`, no local functions.
 - Card class: `public class <Name>Card : WildCard` (registered automatically by reflection). Optional `public static void Init()` on the card class is called once at startup — subscribe hooks there (guard against double subscription).
 - Description 3–6 words, stat lines short (vanilla style). Use `Stat(positive, "Stat", "amount")`.
