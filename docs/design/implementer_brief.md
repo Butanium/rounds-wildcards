@@ -1,7 +1,7 @@
 # Implementer brief — WildCards round 2
 
-Project: `C:\Users\dumas\claude\rounds-wildcards` (ROUNDS mod, BepInEx + UnboundLib 3.2.13 + HarmonyX). Spec for your card: `scratchpad\R2_FINAL.md` (read your card's section + the "Codebase facts" header).
-scratchpad = `C:\Users\dumas\AppData\Local\Temp\claude\29a6498a8035faa6\05a980fb-16d9-4753-a773-aecb0b15f3e2\scratchpad`
+Project: `<repo>` (ROUNDS mod, BepInEx + UnboundLib 3.2.13 + HarmonyX). Spec for your card: `scratchpad\R2_FINAL.md` (read your card's section + the "Codebase facts" header).
+scratchpad = `<scratch>`
 
 ## Hard rules
 - **Write ONLY your own file** `src/Cards/New/<Name>.cs`. Do NOT edit any other file (other agents work in parallel). If you truly need a core change, describe it in your report instead.

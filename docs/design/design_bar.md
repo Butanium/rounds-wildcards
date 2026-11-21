@@ -29,4 +29,4 @@ Already in the set (don't duplicate): SWITCHEROO, METEOR, ROCKET JUMP (shots pus
 - Spawning vanilla effects: `Resources.Load("0 cards/Explosive bullet")` etc. gives card prefabs whose Gun.objectsToSpawn / Block objects can be reused (visual + effect).
 - A custom networked event needs UnboundLib `[UnboundRPC]` static + `NetworkingManager.RPC(...)` (pass playerIDs) — allowed if needed.
 - Tools: API dumps api_game.txt / api_unbound.txt, STATS.md, and an IL dumper: `scratchpad\ildump\ILDump.exe "<Managed dir>" Type:Method` to read real game code.
-- scratchpad = C:\Users\dumas\AppData\Local\Temp\claude\29a6498a8035faa6\05a980fb-16d9-4753-a773-aecb0b15f3e2\scratchpad ; Managed dir = C:\Program Files (x86)\Steam\steamapps\common\ROUNDS\ROUNDS_Data\Managed
+- scratchpad = <scratch> ; Managed dir = C:\Program Files (x86)\Steam\steamapps\common\ROUNDS\ROUNDS_Data\Managed
