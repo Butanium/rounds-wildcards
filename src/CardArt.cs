@@ -34,7 +34,7 @@ namespace WildCards
                     Object.DontDestroyOnLoad(go);
                     Image img = go.AddComponent<Image>();
                     img.sprite = sprite;
-                    img.preserveAspect = true;
+                    img.preserveAspect = false;
                     img.raycastTarget = false;
                     go.AddComponent<ArtFitter>();
                 }
@@ -63,34 +63,18 @@ namespace WildCards
         }
     }
 
-    /// Stretches the art over its parent slot (with a little padding); falls back to a fixed size if the slot has no size.
+    /// Vanilla card art roots are 1100x865 RectTransforms centered in the slot at scale 1 (see art/ref dumps); match that.
     public class ArtFitter : MonoBehaviour
     {
-        static bool logged;
-
         void Start()
         {
             RectTransform rt = GetComponent<RectTransform>();
-            RectTransform parent = transform.parent as RectTransform;
             if (rt == null) return;
-            if (parent != null && parent.rect.width > 10f && parent.rect.height > 10f)
-            {
-                rt.anchorMin = Vector2.zero;
-                rt.anchorMax = Vector2.one;
-                float pad = Mathf.Min(parent.rect.width, parent.rect.height) * 0.06f;
-                rt.offsetMin = new Vector2(pad, pad);
-                rt.offsetMax = new Vector2(-pad, -pad);
-            }
-            else
-            {
-                rt.sizeDelta = new Vector2(450f, 450f);
-            }
+            rt.anchorMin = new Vector2(0.5f, 0.5f);
+            rt.anchorMax = new Vector2(0.5f, 0.5f);
+            rt.pivot = new Vector2(0.5f, 0.5f);
+            rt.sizeDelta = new Vector2(1100f, 865f);
             rt.localPosition = Vector3.zero;
-            if (!logged)
-            {
-                logged = true;
-                Debug.Log("[WildCards] art slot size: " + (parent != null ? parent.rect.size.ToString() : "none"));
-            }
         }
     }
 }

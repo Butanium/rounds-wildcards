@@ -1,16 +1,47 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-  <!-- left blob solid -->
-  <circle cx="125" cy="300" r="58" fill="#fff"/>
-  <circle cx="105" cy="288" r="9" fill="#000" fill-opacity="0.75"/>
-  <circle cx="140" cy="288" r="9" fill="#000" fill-opacity="0.75"/>
-  <!-- right blob translucent -->
-  <circle cx="387" cy="300" r="58" fill="#fff" fill-opacity="0.45"/>
-  <circle cx="372" cy="288" r="9" fill="#fff"/>
-  <circle cx="407" cy="288" r="9" fill="#fff"/>
-  <!-- top arrow left to right -->
-  <path d="M130 215 Q256 90 372 205" fill="none" stroke="#fff" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M330 190 L376 210 L368 160" fill="none" stroke="#fff" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- bottom arrow right to left -->
-  <path d="M382 385 Q256 470 140 388" fill="none" stroke="#fff" stroke-opacity="0.6" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M178 392 L136 385 L150 432" fill="none" stroke="#fff" stroke-opacity="0.6" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="865" viewBox="0 0 1100 865">
+<defs>
+<filter id="gl" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="14"/></filter>
+<pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="6" cy="6" r="3" fill="#000" opacity="0.07"/><circle cx="17" cy="17" r="2.2" fill="#000" opacity="0.06"/></pattern>
+</defs>
+<!-- swap arrows (dim, filled) -->
+<g fill="#8d90a3" opacity="0.5">
+<path d="M450 400 Q520 250 650 215 L662 255 Q560 285 490 420 Z"/><path d="M630 150 L710 235 L610 285 Z"/>
+<path d="M690 610 Q620 760 480 780 L470 740 Q580 720 650 600 Z"/><path d="M500 705 L420 770 L500 830 Z"/>
+</g>
+<!-- beam -->
+<line x1="440" y1="500" x2="700" y2="345" stroke="#8fe8ff" stroke-width="34" stroke-linecap="round" opacity="0.6" filter="url(#gl)"/>
+<g stroke-linecap="round" fill="none">
+<line x1="440" y1="500" x2="700" y2="345" stroke="#8fe8ff" stroke-width="20" stroke-dasharray="44 32" opacity="0.8"/>
+<line x1="440" y1="500" x2="700" y2="345" stroke="#eefcff" stroke-width="8" stroke-dasharray="44 32"/>
+</g>
+<g fill="none" stroke="#bff4ff">
+<circle cx="520" cy="452" r="24" stroke-width="6" opacity="0.9"/>
+<circle cx="570" cy="422" r="38" stroke-width="5" opacity="0.65"/>
+<circle cx="620" cy="392" r="54" stroke-width="4" opacity="0.4"/>
+</g>
+<!-- ball B (defender, TechWhite, confused) -->
+<g>
+<path d="M880 430 Q935 510 905 600" stroke="#c9cbd6" stroke-width="16" fill="none" stroke-linecap="round"/>
+<path d="M790 430 Q760 510 790 580" stroke="#c9cbd6" stroke-width="16" fill="none" stroke-linecap="round"/>
+<path d="M890 170 Q940 110 985 145" stroke="#c9cbd6" stroke-width="16" fill="none" stroke-linecap="round"/>
+<circle cx="830" cy="290" r="150" fill="#c9cbd6"/>
+<circle cx="830" cy="290" r="150" fill="url(#dots)"/>
+<path d="M770 262 L805 268 M875 268 L910 258" stroke="#6d7086" stroke-width="15" stroke-linecap="round"/>
+<path d="M765 225 L822 232" stroke="#6d7086" stroke-width="14" stroke-linecap="round" fill="none"/>
+<path d="M868 215 Q905 170 945 195" stroke="#6d7086" stroke-width="14" stroke-linecap="round" fill="none"/>
+<path d="M775 350 Q795 322 815 350 T855 350 T895 350" stroke="#6d7086" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+<path d="M940 300 Q962 335 940 350 Q918 335 940 300 Z" fill="#6fd3e8"/>
+</g>
+<!-- ball A (attacker, orange) -->
+<g>
+<path d="M170 760 Q130 820 150 880" stroke="#e0733a" stroke-width="18" fill="none" stroke-linecap="round"/>
+<path d="M330 740 Q380 800 360 880" stroke="#e0733a" stroke-width="18" fill="none" stroke-linecap="round"/>
+<path d="M330 580 Q400 590 425 535" stroke="#e0733a" stroke-width="18" fill="none" stroke-linecap="round"/>
+<path d="M405 470 L430 470 L440 530 L490 530 L490 552 L418 552 Z" fill="#8d90a3"/>
+<circle cx="250" cy="620" r="175" fill="#e0733a"/>
+<circle cx="250" cy="620" r="175" fill="url(#dots)"/>
+<path d="M150 585 Q185 550 225 580 M275 570 Q315 540 350 570" stroke="#8a3a12" stroke-width="16" fill="none" stroke-linecap="round"/>
+<path d="M165 680 Q250 730 335 670 Q250 700 165 680 Z" fill="#8a3a12" stroke="#8a3a12" stroke-width="14" stroke-linejoin="round"/>
+<path d="M200 695 L205 712 M245 702 L247 720 M290 697 L286 714" stroke="#f4e8e0" stroke-width="9" stroke-linecap="round"/>
+</g>
 </svg>

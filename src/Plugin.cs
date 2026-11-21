@@ -13,7 +13,7 @@ namespace WildCards
     {
         public const string ModId = "com.wildcards.rounds.cards";
         public const string ModName = "WildCards";
-        public const string Version = "1.3.4";
+        public const string Version = "1.4.0";
         public const string ModInitials = "WILD";
 
         public static WildCardsPlugin instance;
@@ -28,9 +28,13 @@ namespace WildCards
             new Harmony(ModId).PatchAll();
         }
 
+        public static ConfigEntry<bool> DumpArt;
+
         void Start()
         {
             CardRegistry.RegisterAll();
+            DumpArt = Config.Bind("Debug", "DumpVanillaArt", false, "Render every vanilla card's art to BepInEx/WildCardsArtDump/ on startup (for making matching art).");
+            if (DumpArt.Value) ArtDumper.Run(System.IO.Path.Combine(BepInEx.Paths.BepInExRootPath, "WildCardsArtDump"));
         }
     }
 }

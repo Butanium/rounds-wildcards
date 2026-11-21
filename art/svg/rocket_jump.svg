@@ -1,25 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-  <g stroke="#fff" stroke-opacity="0.5" stroke-width="16" stroke-linecap="round" fill="none">
-    <path d="M160 120 V200"/>
-    <path d="M352 120 V200"/>
-    <path d="M110 150 V200"/>
-    <path d="M402 150 V200"/>
-  </g>
-  <circle cx="256" cy="130" r="68" fill="#fff"/>
-  <circle cx="234" cy="122" r="11" fill="#E0A800"/>
-  <circle cx="278" cy="122" r="11" fill="#E0A800"/>
-  <!-- pistol, barrel down -->
-  <!-- drawn pointing right, rotated 90deg so the muzzle points straight down at the blast -->
-  <g transform="translate(262 206) rotate(90)">
-    <rect x="0" y="-22" width="118" height="36" rx="9" fill="#fff"/>
-    <path d="M6 8 L48 8 L38 74 Q36 84 26 84 L6 84 Q-2 84 0 74 Z" fill="#fff"/>
-    <path d="M48 14 Q66 14 66 34 Q66 46 52 46" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/>
-  </g>
-  <!-- recoil arrow -->
-  <path d="M170 310 V236 M144 260 L170 232 L196 260" stroke="#fff" stroke-opacity="0.5" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <!-- blast -->
-  <g transform="translate(256 392) scale(0.85) translate(-256 -415)">
-    <path d="M256 350 L290 400 L336 384 L312 430 L352 462 L292 456 L256 480 L220 456 L160 462 L200 430 L176 384 L222 400 Z" fill="#fff" fill-opacity="0.55" stroke="#fff" stroke-width="14" stroke-linejoin="round"/>
-    <circle cx="256" cy="410" r="20" fill="#fff"/>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="865" viewBox="0 0 1100 865">
+<defs>
+<radialGradient id="gl"><stop offset="0" stop-color="#f6c070" stop-opacity=".9"/><stop offset="1" stop-color="#e0a81e" stop-opacity="0"/></radialGradient>
+<pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="6" cy="6" r="3" fill="#7a5508" opacity=".22"/><circle cx="17" cy="16" r="2" fill="#7a5508" opacity=".18"/></pattern>
+</defs>
+<!-- speed streaks -->
+<g stroke="#e0a81e" stroke-linecap="round" fill="none" opacity=".35">
+<path d="M820 560 L860 760" stroke-width="14"/><path d="M930 470 L965 640" stroke-width="10"/><path d="M730 640 L760 800" stroke-width="8"/>
+</g>
+<!-- debris -->
+<g fill="#8a6a72">
+<path d="M70 640 l50 -30 l30 40 l-40 30z" opacity=".9"/><path d="M660 700 l40 -26 l26 34 l-36 22z"/><path d="M180 520 l26 -16 l16 22 l-22 14z"/><path d="M590 560 l30 -10 l8 26 l-30 8z"/>
+</g>
+<!-- muzzle flash -->
+<g>
+<circle cx="400" cy="790" r="230" fill="url(#gl)" opacity=".4"/>
+<path d="M350 668 L250 705 L300 730 L170 775 L260 800 L190 865 L330 865 L400 800 L430 865 L600 865 L560 800 L640 770 L540 745 L600 690 L470 715 L450 660Z" fill="#d4580e"/>
+<path d="M382 690 L342 750 L392 746 L352 812 L412 792 L392 865 L452 865 L446 786 L474 748 L424 744 L434 692Z" fill="#f2b632"/>
+</g>
+<!-- limbs -->
+<g fill="none" stroke="#e0a81e" stroke-width="26" stroke-linecap="round" stroke-linejoin="round">
+<path d="M640 470 C700 560 760 560 790 620"/>
+<path d="M700 440 C790 480 830 540 800 580"/>
+<path d="M770 250 C830 200 870 130 850 70"/>
+<path d="M520 410 C470 440 440 480 440 530"/>
+</g>
+<!-- gun: L, barrel down, grip up -->
+<path d="M400 505 L470 505 L470 540 L436 540 L436 668 L400 668Z" fill="#857d82"/>
+<!-- body -->
+<circle cx="640" cy="300" r="205" fill="#e0a81e"/>
+<circle cx="640" cy="300" r="205" fill="url(#dots)"/>
+<!-- face -->
+<g fill="#8a5f08" stroke="none">
+<path d="M520 270 L600 235 L606 262 L530 300Z"/>
+<path d="M740 239 L820 266 L810 299 L732 266Z"/>
+</g>
+<rect x="600" y="345" width="160" height="70" rx="22" fill="#6b4606"/>
+<g stroke="#e8c870" stroke-width="7" stroke-linecap="round"><path d="M625 352 V408"/><path d="M655 350 V410"/><path d="M685 350 V410"/><path d="M715 350 V410"/><path d="M742 352 V408"/><path d="M606 380 H756"/></g>
+<!-- glow orb -->
+<circle cx="900" cy="140" r="60" fill="url(#gl)"/><circle cx="900" cy="140" r="26" fill="#f6d9a8"/>
 </svg>

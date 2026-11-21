@@ -1,15 +1,46 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-  <!-- ghost (left, translucent) -->
-  <circle cx="130" cy="290" r="62" fill="#fff" fill-opacity="0.4" stroke="#fff" stroke-opacity="0.6" stroke-width="12" stroke-dasharray="22 16" stroke-linecap="round"/>
-  <circle cx="112" cy="278" r="9" fill="#fff" fill-opacity="0.6"/>
-  <circle cx="148" cy="278" r="9" fill="#fff" fill-opacity="0.6"/>
-  <!-- solid blob (right) -->
-  <circle cx="382" cy="290" r="72" fill="#fff"/>
-  <circle cx="360" cy="276" r="11" fill="#4a7fb5"/>
-  <circle cx="404" cy="276" r="11" fill="#4a7fb5"/>
-  <!-- rewind arc arrow -->
-  <path d="M 340 190 Q 256 110 172 190" fill="none" stroke="#fff" stroke-width="20" stroke-linecap="round"/>
-  <path d="M 208 150 L 168 192 L 226 204" fill="none" stroke="#fff" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- VHS streaks -->
-  <path d="M 215 340 H 300 M 205 372 H 280 M 225 404 H 310" stroke="#fff" stroke-opacity="0.55" stroke-width="16" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="865" viewBox="0 0 1100 865">
+<defs>
+<radialGradient id="g"><stop offset="0" stop-color="#bcd8ff" stop-opacity="0.9"/><stop offset="1" stop-color="#3d7fd1" stop-opacity="0"/></radialGradient>
+<pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="6" cy="6" r="2.2" fill="#1f4a8a" opacity="0.25"/><circle cx="17" cy="17" r="2.2" fill="#1f4a8a" opacity="0.2"/></pattern>
+</defs>
+<!-- ghost past-self, left, cropped -->
+<g opacity="0.62">
+<g stroke="#3d7fd1" stroke-width="30" fill="none" stroke-linecap="round">
+<path d="M170 560 Q150 680 190 800"/><path d="M290 580 Q310 690 270 800"/><path d="M110 330 Q40 250 60 160"/><path d="M420 330 Q500 270 480 180"/>
+</g>
+<circle cx="260" cy="380" r="215" fill="#3d7fd1"/>
+<circle cx="260" cy="380" r="215" fill="url(#dots)"/>
+<g stroke="#1f4a8a" stroke-width="24" fill="none" stroke-linecap="round">
+<path d="M170 320 Q200 295 235 310 M290 310 Q325 295 355 320"/><path d="M190 430 Q255 395 330 430"/></g>
+</g>
+<circle cx="260" cy="380" r="224" fill="none" stroke="#bcd8ff" stroke-width="6" stroke-dasharray="26 18" stroke-linecap="round" opacity="0.8"/>
+<circle cx="480" cy="180" r="14" fill="#a9cdfa" opacity="0.5"/>
+<g fill="#7fb2f0" opacity="0.45">
+<rect x="300" y="70" width="560" height="16" rx="8"/><rect x="520" y="110" width="440" height="10" rx="5"/>
+</g>
+<!-- solid ball pulled left -->
+<g>
+<g stroke="#3d7fd1" stroke-width="32" fill="none" stroke-linecap="round">
+<path d="M760 700 Q800 790 770 880"/><path d="M900 680 Q960 780 940 880"/><path d="M560 470 Q470 430 500 340"/><path d="M930 400 Q1010 330 990 240"/>
+</g>
+<circle cx="760" cy="470" r="250" fill="#3d7fd1"/>
+<circle cx="760" cy="470" r="250" fill="url(#dots)"/>
+<g stroke="#1f4a8a" stroke-width="26" fill="none" stroke-linecap="round">
+<path d="M640 350 Q690 285 750 330 M810 330 Q870 285 920 350"/>
+<path d="M670 430 L710 430 M840 430 L880 430"/>
+<path d="M740 560 Q780 520 820 560"/></g>
+<ellipse cx="780" cy="610" rx="30" ry="40" fill="#1f4a8a"/>
+</g>
+<!-- VHS tracking bands -->
+<g>
+<rect x="30" y="250" width="1010" height="22" fill="#00e5ff" opacity="0.35"/>
+<rect x="70" y="256" width="1010" height="22" fill="#ff2fd0" opacity="0.3"/>
+<rect x="0" y="530" width="900" height="16" fill="#00e5ff" opacity="0.3"/>
+<rect x="45" y="536" width="1055" height="16" fill="#ff2fd0" opacity="0.28"/>
+<rect x="120" y="720" width="980" height="26" fill="#00e5ff" opacity="0.3"/>
+<rect x="85" y="727" width="940" height="26" fill="#ff2fd0" opacity="0.25"/>
+</g>
+<g fill="#a9cdfa"><path d="M780 130 L890 75 L890 185 Z" opacity="0.4"/><path d="M670 130 L780 75 L780 185 Z" opacity="0.7"/><path d="M560 130 L670 75 L670 185 Z"/></g>
+<circle cx="990" cy="240" r="60" fill="url(#g)"/>
+<circle cx="990" cy="240" r="22" fill="#d6e6ff" opacity="0.95"/>
 </svg>

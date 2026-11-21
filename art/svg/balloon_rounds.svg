@@ -1,15 +1,51 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-  <!-- balloon -->
-  <ellipse cx="256" cy="150" rx="74" ry="88" fill="#fff"/>
-  <path d="M238 232 L256 252 L274 232 Z" fill="#fff" stroke="#fff" stroke-width="10" stroke-linejoin="round"/>
-  <ellipse cx="232" cy="120" rx="14" ry="26" fill="#000" fill-opacity="0.12" transform="rotate(20 232 120)"/>
-  <!-- string -->
-  <path d="M256 252 C 240 290, 276 310, 256 345" fill="none" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
-  <!-- blob -->
-  <circle cx="256" cy="400" r="62" fill="#fff"/>
-  <circle cx="236" cy="390" r="9" fill="#000" fill-opacity="0.7"/>
-  <circle cx="276" cy="390" r="9" fill="#000" fill-opacity="0.7"/>
-  <!-- lift trails -->
-  <path d="M150 440 L150 340 M130 362 L150 338 L170 362" fill="none" stroke="#fff" stroke-opacity="0.5" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M362 440 L362 340 M342 362 L362 338 L382 362" fill="none" stroke="#fff" stroke-opacity="0.5" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="865" viewBox="0 0 1100 865">
+<defs>
+<pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="2" fill="#1d3f73" opacity="0.3"/></pattern>
+<radialGradient id="glow"><stop offset="0" stop-color="#d9ecff" stop-opacity="0.55"/><stop offset="1" stop-color="#3d7fd1" stop-opacity="0"/></radialGradient>
+</defs>
+<!-- small pale foreground balloon -->
+<g opacity="0.9">
+<path d="M930 250 C915 300 950 330 925 390" fill="none" stroke="#b9d6f5" stroke-width="6" stroke-linecap="round"/>
+<ellipse cx="935" cy="190" rx="52" ry="64" fill="#b9d6f5" transform="rotate(8 935 190)"/>
+<path d="M925 250 L945 250 L935 266Z" fill="#b9d6f5" transform="rotate(8 935 190)"/>
+<path d="M905 150 C910 128 925 118 942 114" fill="none" stroke="#e4f1ff" stroke-width="9" stroke-linecap="round"/>
+</g>
+<!-- rising air puffs -->
+<g fill="#cfe6ff">
+<circle cx="860" cy="560" r="26" opacity="0.85"/><circle cx="905" cy="500" r="17" opacity="0.7"/><circle cx="880" cy="440" r="11" opacity="0.55"/><circle cx="930" cy="610" r="12" opacity="0.6"/>
+<circle cx="200" cy="170" r="14" opacity="0.6"/><circle cx="250" cy="110" r="9" opacity="0.45"/>
+</g>
+<!-- limbs, starting inside body -->
+<g fill="none" stroke="#3d7fd1" stroke-width="26" stroke-linecap="round">
+<path d="M505 560 C500 660 515 740 505 900"/>
+<path d="M640 565 C650 660 635 750 648 900"/>
+<path d="M440 390 C340 400 310 470 330 590"/>
+<path d="M730 380 C820 380 850 450 835 560"/>
+</g>
+<!-- body: taller than wide -->
+<g transform="rotate(-8 575 350)">
+<ellipse cx="575" cy="350" rx="205" ry="255" fill="#3d7fd1"/>
+<ellipse cx="575" cy="350" rx="205" ry="255" fill="url(#dots)"/>
+<!-- knot -->
+<path d="M556 596 L596 596 C602 616 614 628 626 634 C600 646 552 646 526 634 C540 628 552 616 556 596Z" fill="#2f69b3"/>
+<path d="M450 210 C470 150 520 115 575 108" fill="none" stroke="#7db3ee" stroke-width="20" stroke-linecap="round"/>
+<!-- worried face -->
+<g fill="none" stroke="#1f4a85" stroke-width="20" stroke-linecap="round" stroke-linejoin="round">
+<path d="M460 285 L525 252"/><path d="M690 285 L625 252"/>
+<path d="M500 440 C535 420 550 455 575 435 C600 415 620 455 655 435"/>
+</g>
+<circle cx="505" cy="335" r="21" fill="#1f4a85"/><circle cx="645" cy="335" r="21" fill="#1f4a85"/>
+<path d="M728 330 C714 360 714 378 732 378 C750 378 750 360 728 330Z" fill="#a9d4ff"/>
+</g>
+<!-- bullet -->
+<g transform="translate(150,720) rotate(-38)">
+<path d="M-140 -46 L40 -46 C100 -46 125 -22 130 0 C125 22 100 46 40 46 L-140 46Z" fill="#8a6a72"/>
+<rect x="-10" y="-46" width="22" height="92" fill="#6e525a"/>
+<rect x="-115" y="-24" width="80" height="15" rx="7" fill="#6e525a"/><rect x="-115" y="9" width="80" height="15" rx="7" fill="#6e525a"/>
+</g>
+<!-- ragged flame burst at impact -->
+<g transform="translate(290,610) rotate(-40)" stroke-linejoin="round" stroke-linecap="round">
+<path d="M-60 -10 L-10 -50 L0 -85 L45 -45 L90 -100 L120 -40 L190 -45 L165 0 L215 30 L150 45 L170 100 L100 70 L70 115 L40 60 L-20 80 L-5 35 L-70 25Z" fill="#d4580e" stroke="#d4580e" stroke-width="14"/>
+<path d="M-10 5 L30 -15 L55 -40 L75 -5 L120 -15 L110 15 L150 25 L100 35 L85 55 L55 35 L20 45 L25 22Z" fill="#f2b632" stroke="#f2b632" stroke-width="8"/>
+</g>
 </svg>

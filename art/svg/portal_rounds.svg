@@ -1,21 +1,75 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-  <!-- orange portal -->
-  <ellipse cx="195" cy="256" rx="42" ry="140" fill="#ff9a2e" fill-opacity="0.45" stroke="#ff9a2e" stroke-width="22"/>
-  <ellipse cx="195" cy="256" rx="14" ry="84" fill="#fff" fill-opacity="0.5"/>
-  <!-- blue portal -->
-  <ellipse cx="317" cy="256" rx="42" ry="140" fill="#3aa8ff" fill-opacity="0.45" stroke="#3aa8ff" stroke-width="22"/>
-  <ellipse cx="317" cy="256" rx="14" ry="84" fill="#fff" fill-opacity="0.5"/>
-  <!-- entering bullet -->
-  <circle cx="105" cy="256" r="24" fill="#fff"/>
-  <g stroke="#fff" stroke-width="16" stroke-linecap="round" stroke-opacity="0.6">
-    <path d="M70 218 H 92"/>
-    <path d="M70 294 H 92"/>
-  </g>
-  <!-- exiting bullet -->
-  <circle cx="440" cy="256" r="24" fill="#fff"/>
-  <g stroke="#fff" stroke-width="16" stroke-linecap="round" stroke-opacity="0.6">
-    <path d="M372 256 H 400"/>
-    <path d="M385 222 H 405"/>
-    <path d="M385 290 H 405"/>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="865" viewBox="0 0 1100 865">
+<defs>
+<pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="2" fill="#000" opacity="0.13"/></pattern>
+<radialGradient id="gO"><stop offset="0.55" stop-color="#ff8a1f" stop-opacity="0.55"/><stop offset="1" stop-color="#ff8a1f" stop-opacity="0"/></radialGradient>
+<radialGradient id="gB"><stop offset="0.55" stop-color="#2aa3ff" stop-opacity="0.55"/><stop offset="1" stop-color="#2aa3ff" stop-opacity="0"/></radialGradient>
+<linearGradient id="streak" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#7cc8ff" stop-opacity="0"/><stop offset="1" stop-color="#7cc8ff" stop-opacity="0.35"/></linearGradient>
+<clipPath id="inO"><rect x="-300" y="-300" width="770" height="1500" transform="rotate(12 470 240)"/></clipPath>
+<clipPath id="outB"><rect x="760" y="-300" width="800" height="1500" transform="rotate(12 760 560)"/></clipPath>
+<g id="bullet">
+<path d="M-170 -40 Q-170 -58 -152 -58 L40 -58 L40 58 L-152 58 Q-170 58 -170 40 Z" fill="#8a6a72"/>
+<rect x="-146" y="-46" width="170" height="20" rx="10" fill="#6b4f57"/>
+<rect x="-146" y="-10" width="170" height="20" rx="10" fill="#6b4f57"/>
+<rect x="-146" y="26" width="170" height="20" rx="10" fill="#6b4f57"/>
+<rect x="40" y="-58" width="26" height="116" fill="#6b4f57"/>
+<path d="M66 -58 L110 -58 Q200 -52 235 0 Q200 52 110 58 L66 58 Z" fill="#8a6a72"/>
+</g>
+</defs>
+
+<!-- orange portal (upper left) -->
+<g transform="rotate(12 470 240)">
+<ellipse cx="470" cy="240" rx="170" ry="260" fill="url(#gO)"/>
+<ellipse cx="470" cy="240" rx="70" ry="170" fill="#7a2f06"/>
+<ellipse cx="470" cy="240" rx="70" ry="170" fill="none" stroke="#ff8a1f" stroke-width="26"/>
+<ellipse cx="470" cy="240" rx="44" ry="140" fill="none" stroke="#ffc15a" stroke-width="8" opacity="0.9"/>
+</g>
+<!-- bullet entering orange portal -->
+<g clip-path="url(#inO)">
+<g transform="translate(400 250) rotate(12) scale(1.3)"><use href="#bullet"/></g>
+</g>
+<g transform="rotate(12 470 240)">
+<path d="M470 70 A70 170 0 0 1 470 410" fill="none" stroke="#ff8a1f" stroke-width="26"/>
+<path d="M470 100 A44 140 0 0 1 470 380" fill="none" stroke="#ffc15a" stroke-width="8" opacity="0.9"/>
+</g>
+
+<!-- blue portal (lower right) -->
+<g transform="rotate(12 760 560)">
+<ellipse cx="760" cy="560" rx="170" ry="260" fill="url(#gB)"/>
+<ellipse cx="760" cy="560" rx="70" ry="170" fill="#0c3a66"/>
+<ellipse cx="760" cy="560" rx="70" ry="170" fill="none" stroke="#2aa3ff" stroke-width="26"/>
+<ellipse cx="760" cy="560" rx="44" ry="140" fill="none" stroke="#9fd8ff" stroke-width="8" opacity="0.9"/>
+</g>
+<!-- motion streaks trailing behind exiting bullet -->
+<g transform="translate(790 566) rotate(12)">
+<path d="M-260 -48 L60 -62 L60 62 L-260 48 Z" fill="url(#streak)"/>
+<rect x="-330" y="-86" width="300" height="9" rx="4.5" fill="url(#streak)"/>
+<rect x="-380" y="76" width="340" height="9" rx="4.5" fill="url(#streak)"/>
+<rect x="-300" y="-4" width="260" height="8" rx="4" fill="url(#streak)"/>
+</g>
+<!-- bullet bursting out of blue portal -->
+<g clip-path="url(#outB)">
+<g transform="translate(940 585) rotate(12) scale(1.3)"><use href="#bullet"/></g>
+</g>
+
+<!-- sparkle orbs -->
+<g fill="#ffd9a0"><circle cx="150" cy="330" r="9"/><circle cx="640" cy="70" r="7"/></g>
+<g fill="#bfe6ff"><circle cx="700" cy="250" r="9"/><circle cx="1020" cy="330" r="7"/></g>
+<g fill="#f2b632"><ellipse cx="560" cy="470" rx="26" ry="10" transform="rotate(-30 560 470)"/><ellipse cx="610" cy="520" rx="20" ry="8" transform="rotate(-10 610 520)"/></g>
+
+<!-- surprised ball, bottom-left, cropped, leaning back -->
+<g transform="translate(150 740) rotate(-16) scale(0.8)">
+<g stroke="#c43c9c" stroke-width="24" fill="none" stroke-linecap="round">
+<path d="M-70 100 Q-30 190 -60 260"/>
+<path d="M50 110 Q110 170 120 250"/>
+<path d="M-125 -35 Q-210 -80 -180 -160"/>
+<path d="M120 -50 Q200 -100 185 -190"/>
+</g>
+<circle r="135" fill="#c43c9c"/>
+<circle r="135" fill="url(#dots)"/>
+<g stroke="#7a1f60" stroke-width="12" fill="none" stroke-linecap="round">
+<path d="M-85 -62 L-30 -84"/><path d="M30 -88 L88 -66"/>
+</g>
+<g fill="#7a1f60"><circle cx="-58" cy="-30" r="10"/><circle cx="58" cy="-32" r="10"/>
+<ellipse cx="5" cy="62" rx="30" ry="26"/></g>
+</g>
 </svg>

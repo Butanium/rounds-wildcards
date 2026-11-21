@@ -2,3 +2,4 @@ bin/
 *.rsp
 *.log
 art/png/_*
+art/ref/

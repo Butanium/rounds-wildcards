@@ -13,7 +13,7 @@ $cards = @(
   @("BALLOON ROUNDS","balloon_rounds","#3567a8","Hits make enemies float"),
   @("BOOMERANG","boomerang","#b13f8c","Bullets come back. Catch them for ammo")
 )
-$W=260; $H=360; $GAP=20; $cols=5; $rows=2
+$W=300; $H=330; $AH=[int](($W-24)*865/1100); $GAP=20; $cols=5; $rows=2
 $bmp = New-Object Drawing.Bitmap ($cols*$W + ($cols+1)*$GAP), ($rows*$H + ($rows+1)*$GAP)
 $g = [Drawing.Graphics]::FromImage($bmp)
 $g.SmoothingMode='AntiAlias'; $g.TextRenderingHint='AntiAliasGridFit'; $g.InterpolationMode='HighQualityBicubic'
@@ -28,11 +28,12 @@ for ($i=0; $i -lt $cards.Count; $i++) {
   $col=[Drawing.ColorTranslator]::FromHtml($c[2])
   $card=RoundRect $x $y $W $H 18
   $g.FillPath((New-Object Drawing.SolidBrush ([Drawing.Color]::FromArgb(245,245,245))), $card)
-  $art=RoundRect ($x+12) ($y+12) ($W-24) ($W-24) 12
-  $g.FillPath((New-Object Drawing.SolidBrush $col), $art)
+  $art=RoundRect ($x+12) ($y+12) ($W-24) $AH 12
+  $g.FillPath((New-Object Drawing.SolidBrush ([Drawing.Color]::FromArgb(30,31,38))), $art)
+
   $png=Join-Path $root "art\png\$($c[1]).png"
-  if (Test-Path $png) { $im=[Drawing.Image]::FromFile($png); $g.DrawImage($im, $x+22, $y+22, $W-44, $W-44); $im.Dispose() }
-  $g.DrawString($c[0], $titleFont, (New-Object Drawing.SolidBrush $col), (New-Object Drawing.RectangleF $x, ($y+$W-6), $W, 34), $sf)
-  $g.DrawString($c[3], $descFont, (New-Object Drawing.SolidBrush ([Drawing.Color]::FromArgb(60,60,70))), (New-Object Drawing.RectangleF ($x+10), ($y+$W+26), ($W-20), 64), $sf)
+  if (Test-Path $png) { $im=[Drawing.Image]::FromFile($png); $g.DrawImage($im, $x+12, $y+12, $W-24, $AH); $im.Dispose() }
+  $g.DrawString($c[0], $titleFont, (New-Object Drawing.SolidBrush $col), (New-Object Drawing.RectangleF $x, ($y+$AH+22), $W, 34), $sf)
+  $g.DrawString($c[3], $descFont, (New-Object Drawing.SolidBrush ([Drawing.Color]::FromArgb(60,60,70))), (New-Object Drawing.RectangleF ($x+10), ($y+$AH+56), ($W-20), 64), $sf)
 }
 $out=Join-Path $root "docs\cards.png"; $bmp.Save($out,[Drawing.Imaging.ImageFormat]::Png); $g.Dispose(); $bmp.Dispose(); "saved $out"
