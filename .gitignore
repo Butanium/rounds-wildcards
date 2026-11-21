@@ -3,3 +3,4 @@ bin/
 *.log
 art/png/_*
 art/ref/
+dev/

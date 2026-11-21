@@ -32,6 +32,7 @@ Windows, Git Bash. No .NET SDK is needed: `build.sh` uses the .NET Framework `cs
 export ROUNDS_MANAGED='C:\...\ROUNDS\ROUNDS_Data\Managed'
 export BEPINEX_DIR='C:\...\r2modmanPlus-local\ROUNDS\profiles\<profile>\BepInEx'
 bash build.sh                  # -> bin/WildCards.dll + bin/WildCards-<version>.zip
+bash release.sh 1.4.7 "notes"  # bump, build, commit, push, install, GitHub release
 CARD=Portal bash build.sh      # compile check with only src/Cards/New/Portal.cs among the new cards
 powershell -File install.ps1 -Profile "WildCards 1v1"   # copy the build into an r2modman profile
 ```
