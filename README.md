@@ -1,5 +1,7 @@
 # WildCards — a ROUNDS card mod
 
+![All WildCards cards](docs/cards.png)
+
 10 cards for [ROUNDS](https://store.steampowered.com/app/1557740/ROUNDS/), each built around a new action rather than a stat change.
 
 | Card | What it does |
