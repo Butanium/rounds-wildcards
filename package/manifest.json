@@ -1,6 +1,6 @@
 {
   "name": "WildCards",
-  "version_number": "1.4.5",
+  "version_number": "1.4.6",
   "website_url": "",
   "description": "10 cards built around new verbs: Portal Rounds, Grapple, Rewind, Hot Potato, Wraparound, Switcheroo, Meteor, Rocket Jump, Balloon Rounds, Boomerang.",
   "dependencies": [

@@ -22,7 +22,7 @@
 2. Download `WildCards-<version>.zip` from Releases, then in r2modman go to **Settings → Import local mod** and pick the zip.
 3. Launch modded. Everyone in the lobby needs the same version.
 
-Config `BepInEx/config/com.wildcards.rounds.cards.cfg` → `WildCardChance` (default 0.6) is the chance that each offered card is replaced by a WildCards card. Set it to 0 for normal odds.
+Config `BepInEx/config/com.wildcards.rounds.cards.cfg` → `WildCardChance` (default 0.1) is the chance that each offered card is replaced by a WildCards card. Set it to 0 for normal odds.
 
 ## Build (developers)
 Windows, Git Bash. No .NET SDK is needed: `build.sh` uses the .NET Framework `csc.exe` built into Windows (**C# 5 only**).

@@ -13,7 +13,7 @@ namespace WildCards
     {
         public const string ModId = "com.wildcards.rounds.cards";
         public const string ModName = "WildCards";
-        public const string Version = "1.4.5";
+        public const string Version = "1.4.6";
         public const string ModInitials = "WILD";
 
         public static WildCardsPlugin instance;
@@ -22,7 +22,7 @@ namespace WildCards
         void Awake()
         {
             instance = this;
-            WildChance = Config.Bind("Testing", "WildCardChance", 0.6f,
+            WildChance = Config.Bind("Testing", "WildCardChance", 0.1f,
                 "Chance (0-1) that each offered card is replaced by a random WildCards card. 0 = normal odds. " +
                 "Applies to the hands YOU are offered. Disabled cards (Toggle Cards menu) are never offered.");
             new Harmony(ModId).PatchAll();
