@@ -22,7 +22,7 @@ namespace WildCards
         void Awake()
         {
             instance = this;
-            WildChance = Config.Bind("Testing", "WildCardChance", 0.4f,
+            WildChance = Config.Bind("Testing", "WildCardChance", 0.6f,
                 "Chance (0-1) that each offered card is replaced by a random WildCards card. 0 = normal odds. " +
                 "Applies to the hands YOU are offered. Disabled cards (Toggle Cards menu) are never offered.");
             new Harmony(ModId).PatchAll();

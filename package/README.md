@@ -16,4 +16,4 @@
 | BOOMERANG | Bullets curve back to you. Catch them to get the ammo back. |
 
 ## Testing
-`BepInEx/config/com.wildcards.rounds.cards.cfg` → `WildCardChance` (default 0.4) is the chance that each offered card is replaced by a WildCards card. Set it to 0 for normal odds.
+`BepInEx/config/com.wildcards.rounds.cards.cfg` → `WildCardChance` (default 0.6) is the chance that each offered card is replaced by a WildCards card. Set it to 0 for normal odds.
