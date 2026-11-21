@@ -122,8 +122,7 @@ namespace WildCards.Wraparound
             if (pos.x > TriggerX && v.x >= 0f) { dest.x = -ArriveX; wrap = true; }
             else if (pos.x < -TriggerX && v.x <= 0f) { dest.x = ArriveX; wrap = true; }
 
-            if (pos.y < -TriggerY && v.y <= 0f) { dest.y = ArriveTop; wrap = true; }
-            else if (pos.y > TriggerY && v.y >= 0f) { dest.y = ArriveBottom; wrap = true; }
+            // Players wrap only through the side edges: falling off the bottom must still kill (top/bottom wrap made you immortal).
 
             if (!wrap) return;
 
@@ -203,23 +202,32 @@ namespace WildCards.Wraparound
     public class WrapBullet : MonoBehaviour
     {
         const float Margin = 0.3f;
+        const float EdgeLook = 1.2f;   // wrap this close to the edge, before any edge bounce can happen
         public int wrapsLeft = 1;
         RayCastTrail trail;
+        MoveTransform move;
 
-        void Start() { trail = GetComponent<RayCastTrail>(); }
+        void Start() { trail = GetComponent<RayCastTrail>(); move = GetComponent<MoveTransform>(); }
 
-        // LateUpdate: after MoveTransform and RayCastTrail have run this frame.
-        void LateUpdate()
+        // Checked in both Update and LateUpdate so we act before RayCastTrail can bounce the bullet off the edge
+        // (wrapping takes priority over bouncing; the bounce is not spent and still works on walls).
+        void Update() { TryWrap(); }
+        void LateUpdate() { TryWrap(); }
+
+        void TryWrap()
         {
             if (wrapsLeft <= 0) return;
             Vector3 pos = transform.position;
+            Vector3 vel = move != null ? move.velocity : Vector3.zero;
+            float step = Mathf.Max(Time.deltaTime, 0.02f) * 2f;
+            Vector3 next = pos + vel * step;
             Vector3 dest = pos;
             bool wrap = false;
 
-            if (pos.x > Arena.MaxX) { dest.x = -Arena.MaxX + Margin; wrap = true; }
-            else if (pos.x < -Arena.MaxX) { dest.x = Arena.MaxX - Margin; wrap = true; }
-            if (pos.y > Arena.MaxY) { dest.y = -Arena.MaxY + Margin; wrap = true; }
-            else if (pos.y < -Arena.MaxY) { dest.y = Arena.MaxY - Margin; wrap = true; }
+            if ((pos.x > Arena.MaxX - EdgeLook || next.x > Arena.MaxX - EdgeLook) && vel.x > 0f) { dest.x = -Arena.MaxX + EdgeLook + Margin; wrap = true; }
+            else if ((pos.x < -Arena.MaxX + EdgeLook || next.x < -Arena.MaxX + EdgeLook) && vel.x < 0f) { dest.x = Arena.MaxX - EdgeLook - Margin; wrap = true; }
+            if ((pos.y > Arena.MaxY - EdgeLook || next.y > Arena.MaxY - EdgeLook) && vel.y > 0f) { dest.y = -Arena.MaxY + EdgeLook + Margin; wrap = true; }
+            else if ((pos.y < -Arena.MaxY + EdgeLook || next.y < -Arena.MaxY + EdgeLook) && vel.y < 0f) { dest.y = Arena.MaxY - EdgeLook - Margin; wrap = true; }
             if (!wrap) return;
 
             wrapsLeft--;

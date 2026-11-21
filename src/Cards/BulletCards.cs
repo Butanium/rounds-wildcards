@@ -171,10 +171,17 @@ namespace WildCards
         public static void OnHit(Player attacker, Player victim)
         {
             int n = Fx.Stacks<BalloonEffect>(attacker);
-            if (n <= 0 || !Fx.IsMine(victim) || victim.data.dead) return;
+            if (n <= 0 || victim.data.dead) return;
+            float dur = 1.3f + 0.4f * (n - 1);
+            // Visible to everyone: a balloon tied to the victim while they float.
+            BalloonVisual vis = victim.GetComponent<BalloonVisual>();
+            if (vis == null) vis = victim.gameObject.AddComponent<BalloonVisual>();
+            vis.Apply(dur);
+            if (!Fx.IsMine(victim)) return;
+
             FloatDebuff f = victim.GetComponent<FloatDebuff>();
             if (f == null) f = victim.gameObject.AddComponent<FloatDebuff>();
-            f.Apply(1.3f + 0.4f * (n - 1));
+            f.Apply(dur);
         }
     }
 
@@ -240,5 +247,127 @@ namespace WildCards
         }
 
         void OnDisable() { active = false; immuneLeft = 0f; }
+    }
+
+    /// Cosmetic balloon tied above a floating player (all clients). Mirrors FloatDebuff's timing rules
+    /// (extend up to 1.6x, then 2s immunity) so it shows exactly while the victim floats; pops when it ends.
+    public class BalloonVisual : MonoBehaviour
+    {
+        const float Immunity = 2.0f;
+        static Sprite circle;
+        static Material mat;
+
+        CharacterData data;
+        GameObject root;
+        SpriteRenderer balloon, shine;
+        LineRenderer str;
+        float timeLeft, elapsed, immuneLeft, popT = -1f;
+        bool active;
+
+        static Sprite Circle()
+        {
+            if (circle != null) return circle;
+            const int S = 64;
+            Texture2D tex = new Texture2D(S, S, TextureFormat.RGBA32, false);
+            for (int y = 0; y < S; y++)
+                for (int x = 0; x < S; x++)
+                {
+                    float dx = (x + 0.5f) / S * 2f - 1f, dy = (y + 0.5f) / S * 2f - 1f;
+                    float d = Mathf.Sqrt(dx * dx + dy * dy);
+                    tex.SetPixel(x, y, new Color(1f, 1f, 1f, Mathf.Clamp01((1f - d) * S * 0.5f)));
+                }
+            tex.Apply();
+            circle = Sprite.Create(tex, new Rect(0, 0, S, S), new Vector2(0.5f, 0.5f), S);
+            return circle;
+        }
+
+        void Awake() { data = GetComponent<CharacterData>(); }
+
+        public void Apply(float duration)
+        {
+            if (immuneLeft > 0f) return;
+            if (!active)
+            {
+                active = true;
+                elapsed = 0f;
+                timeLeft = 0f;
+                popT = -1f;
+                Build();
+            }
+            timeLeft = Mathf.Min(Mathf.Max(timeLeft, duration), duration * 1.6f - elapsed);
+        }
+
+        void Build()
+        {
+            if (root != null) return;
+            if (mat == null) mat = new Material(Shader.Find("Sprites/Default"));
+            root = new GameObject("WildCards_Balloon");
+            GameObject b = new GameObject("balloon");
+            b.transform.SetParent(root.transform, false);
+            balloon = b.AddComponent<SpriteRenderer>();
+            balloon.sprite = Circle();
+            balloon.color = new Color(0.9f, 0.22f, 0.27f, 0.95f);
+            balloon.sortingLayerName = "MostFront";
+            balloon.sortingOrder = 50;
+            b.transform.localScale = new Vector3(1.1f, 1.3f, 1f);
+            GameObject s = new GameObject("shine");
+            s.transform.SetParent(b.transform, false);
+            s.transform.localPosition = new Vector3(-0.18f, 0.2f, 0f);
+            s.transform.localScale = new Vector3(0.25f, 0.32f, 1f);
+            shine = s.AddComponent<SpriteRenderer>();
+            shine.sprite = Circle();
+            shine.color = new Color(1f, 1f, 1f, 0.55f);
+            shine.sortingLayerName = "MostFront";
+            shine.sortingOrder = 51;
+            GameObject l = new GameObject("string");
+            l.transform.SetParent(root.transform, false);
+            str = l.AddComponent<LineRenderer>();
+            str.material = mat;
+            str.useWorldSpace = true;
+            str.positionCount = 3;
+            str.startWidth = 0.06f; str.endWidth = 0.06f;
+            str.startColor = new Color(1f, 1f, 1f, 0.85f); str.endColor = str.startColor;
+            str.sortingLayerName = "MostFront";
+            str.sortingOrder = 49;
+        }
+
+        void Update()
+        {
+            if (active)
+            {
+                timeLeft -= Time.deltaTime;
+                elapsed += Time.deltaTime;
+                if (timeLeft <= 0f || (data != null && data.dead)) { active = false; immuneLeft = Immunity; popT = 0f; }
+            }
+            else if (immuneLeft > 0f) immuneLeft -= Time.deltaTime;
+
+            if (root == null) return;
+            float s = Mathf.Max(transform.localScale.y, 0.5f);
+            Vector3 head = transform.position + new Vector3(0f, 0.9f * s, 0f);
+            float bob = Mathf.Sin(Time.time * 6f) * 0.12f;
+            Vector3 bp = transform.position + new Vector3(0.25f + bob * 0.5f, 2.6f * s + bob, 0f);
+            head.z = 0f; bp.z = 0f;
+
+            if (popT >= 0f)
+            {
+                // Pop: quick swell + fade, then remove.
+                popT += Time.deltaTime;
+                float k = Mathf.Clamp01(popT / 0.15f);
+                balloon.transform.localScale = new Vector3(1.1f, 1.3f, 1f) * (1f + k * 0.6f);
+                Color c = balloon.color; c.a = 0.95f * (1f - k); balloon.color = c;
+                shine.enabled = false; str.enabled = false;
+                if (k >= 1f) { Destroy(root); root = null; }
+                return;
+            }
+
+            balloon.transform.position = bp;
+            Vector3 mid = Vector3.Lerp(head, bp, 0.5f) + new Vector3(-bob, 0f, 0f);
+            str.SetPosition(0, head);
+            str.SetPosition(1, mid);
+            str.SetPosition(2, bp - new Vector3(0f, 0.6f, 0f));
+        }
+
+        void OnDisable() { active = false; immuneLeft = 0f; if (root != null) { Destroy(root); root = null; } }
+        void OnDestroy() { if (root != null) Destroy(root); }
     }
 }

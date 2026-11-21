@@ -8,7 +8,7 @@
 | GRAPPLE | Jump in mid-air with no jumps left to fire a hook. Hold jump to swing and reel in, let go to fling. Hooking a player yanks them toward you. |
 | REWIND | A ghost of you trails 2s behind, visible to everyone. Blocking snaps you back to it. |
 | HOT POTATO | Your hit plants a 5s bomb. The holder passes it by shooting or touching someone. It explodes on whoever holds it at the end. |
-| WRAPAROUND | You and your bullets wrap around the screen edges. Fall off the bottom and you drop in from the top. |
+| WRAPAROUND | You wrap around the left and right screen edges; your bullets wrap around every edge (before bouncing). Falling off the bottom still kills. |
 | SWITCHEROO | Blocking links you to whoever hurt you in the last 5s. 0.6s later you swap places, unless they are blocking at that moment. |
 | METEOR | Hold down in the air to dive. Landing sends out a shockwave that damages and launches nearby enemies. |
 | ROCKET JUMP | Shooting pushes you away from your aim. Shoot the floor to fly. |
