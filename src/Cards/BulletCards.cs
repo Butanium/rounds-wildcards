@@ -40,7 +40,7 @@ namespace WildCards
         static readonly Color ReturnColor = new Color(1f, 0.55f, 0.9f, 0.55f);
 
         int stacks;
-        float age, turnAge;
+        float age, turnAge, maxDist;
         bool returning, boosted;
         float speed;
         Player owner;
@@ -65,7 +65,7 @@ namespace WildCards
 
         bool WallAhead()
         {
-            if (trail == null) return false;
+            if (trail == null || age < 0.08f) return false;
             // Bouncy builds keep bouncing; the boomerang only turns once bounces are spent (or at OutTime).
             RayHitReflect rf = GetComponent<RayHitReflect>();
             if (rf != null && rf.reflects > 0) return false;
@@ -75,7 +75,13 @@ namespace WildCards
             float spd = v.magnitude;
             if (spd < 0.01f) return false;
             float look = spd * Mathf.Max(Time.deltaTime, 0.016f) * 2.5f + 0.4f;
-            return Physics2D.Raycast(transform.position, v / spd, look, walls).collider != null;
+            foreach (RaycastHit2D h in Physics2D.RaycastAll(transform.position, v / spd, look, walls))
+            {
+                if (h.collider == null) continue;
+                if (h.collider.GetComponentInParent<Player>() != null) continue;   // never "walls" made of players (incl. the shooter)
+                return true;
+            }
+            return false;
         }
 
         void StartReturn()
@@ -110,7 +116,14 @@ namespace WildCards
             to.z = 0f;
             float dist = to.magnitude;
 
-            if (dist < CatchRadius)
+            if (dist > maxDist) maxDist = dist;
+            // Only catchable once it actually flew away (it spawns inside the catch radius).
+            if (dist < CatchRadius && maxDist <= 3f && turnAge > 0.05f)
+            {
+                Destroy(gameObject);   // point-blank wall shot came straight back: no self-hit, no free ammo
+                return;
+            }
+            if (dist < CatchRadius && maxDist > 3f)
             {
                 Catch();
                 return;

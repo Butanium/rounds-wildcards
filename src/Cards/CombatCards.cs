@@ -14,6 +14,7 @@ namespace WildCards
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             block.cdAdd = 0.5f;
+            cardInfo.allowMultiple = false;   // a second copy does nothing
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         { Fx.Add<SwitcherooEffect>(player, gun, gunAmmo); }
