@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <!-- orange portal -->
+  <ellipse cx="195" cy="256" rx="42" ry="140" fill="#ff9a2e" fill-opacity="0.45" stroke="#ff9a2e" stroke-width="22"/>
+  <ellipse cx="195" cy="256" rx="14" ry="84" fill="#fff" fill-opacity="0.5"/>
+  <!-- blue portal -->
+  <ellipse cx="317" cy="256" rx="42" ry="140" fill="#3aa8ff" fill-opacity="0.45" stroke="#3aa8ff" stroke-width="22"/>
+  <ellipse cx="317" cy="256" rx="14" ry="84" fill="#fff" fill-opacity="0.5"/>
+  <!-- entering bullet -->
+  <circle cx="105" cy="256" r="24" fill="#fff"/>
+  <g stroke="#fff" stroke-width="16" stroke-linecap="round" stroke-opacity="0.6">
+    <path d="M70 218 H 92"/>
+    <path d="M70 294 H 92"/>
+  </g>
+  <!-- exiting bullet -->
+  <circle cx="440" cy="256" r="24" fill="#fff"/>
+  <g stroke="#fff" stroke-width="16" stroke-linecap="round" stroke-opacity="0.6">
+    <path d="M372 256 H 400"/>
+    <path d="M385 222 H 405"/>
+    <path d="M385 290 H 405"/>
+  </g>
+</svg>

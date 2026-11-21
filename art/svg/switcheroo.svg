@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <!-- left blob solid -->
+  <circle cx="125" cy="300" r="58" fill="#fff"/>
+  <circle cx="105" cy="288" r="9" fill="#000" fill-opacity="0.75"/>
+  <circle cx="140" cy="288" r="9" fill="#000" fill-opacity="0.75"/>
+  <!-- right blob translucent -->
+  <circle cx="387" cy="300" r="58" fill="#fff" fill-opacity="0.45"/>
+  <circle cx="372" cy="288" r="9" fill="#fff"/>
+  <circle cx="407" cy="288" r="9" fill="#fff"/>
+  <!-- top arrow left to right -->
+  <path d="M130 215 Q256 90 372 205" fill="none" stroke="#fff" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M330 190 L376 210 L368 160" fill="none" stroke="#fff" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- bottom arrow right to left -->
+  <path d="M382 385 Q256 470 140 388" fill="none" stroke="#fff" stroke-opacity="0.6" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M178 392 L136 385 L150 432" fill="none" stroke="#fff" stroke-opacity="0.6" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <!-- toss arc -->
+  <path d="M110 330 Q256 90 402 330" fill="none" stroke="#fff" stroke-opacity="0.5" stroke-width="14" stroke-linecap="round" stroke-dasharray="4 30"/>
+  <!-- bomb -->
+  <circle cx="256" cy="250" r="95" fill="#fff"/>
+  <rect x="226" y="140" width="60" height="34" rx="8" fill="#fff"/>
+  <path d="M276 140 Q300 100 330 112" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round"/>
+  <!-- spark -->
+  <g stroke="#FFC933" stroke-width="12" stroke-linecap="round">
+    <line x1="346" y1="112" x2="346" y2="76"/>
+    <line x1="346" y1="112" x2="382" y2="112"/>
+    <line x1="346" y1="112" x2="372" y2="86"/>
+    <line x1="346" y1="112" x2="320" y2="86"/>
+  </g>
+  <circle cx="338" cy="112" r="14" fill="#FFC933"/>
+  <!-- highlight -->
+  <path d="M205 230 Q210 195 245 185" fill="none" stroke="#000" stroke-opacity="0.18" stroke-width="16" stroke-linecap="round"/>
+  <!-- blobs -->
+  <g fill="#fff" fill-opacity="0.6">
+    <circle cx="110" cy="388" r="50"/>
+    <circle cx="402" cy="388" r="50"/>
+  </g>
+  <g fill="#000" fill-opacity="0.45">
+    <circle cx="124" cy="378" r="8"/><circle cx="148" cy="378" r="8"/>
+    <circle cx="364" cy="378" r="8"/><circle cx="388" cy="378" r="8"/>
+  </g>
+</svg>

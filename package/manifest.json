@@ -1,0 +1,11 @@
+{
+  "name": "WildCards",
+  "version_number": "1.3.0",
+  "website_url": "",
+  "description": "10 cards built around new verbs: Portal Rounds, Grapple, Rewind, Hot Potato, Wraparound, Switcheroo, Meteor, Rocket Jump, Balloon Rounds, Boomerang.",
+  "dependencies": [
+    "BepInEx-BepInExPack_ROUNDS-5.4.1901",
+    "willis81808-UnboundLib-3.2.14",
+    "willis81808-MMHook-1.0.0"
+  ]
+}

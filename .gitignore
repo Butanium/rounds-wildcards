@@ -1,0 +1,4 @@
+bin/
+*.rsp
+*.log
+art/png/_*
