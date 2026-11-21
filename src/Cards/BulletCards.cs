@@ -8,7 +8,6 @@ namespace WildCards
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            gun.projectileSpeed = 0.85f;
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         { Fx.Add<BoomerangEffect>(player, gun, gunAmmo); }
@@ -22,30 +21,33 @@ namespace WildCards
         {
             return new CardInfoStat[] {
                 Stat(true, "Returning dmg", "+30%"),
-                Stat(true, "Catch", "+1 ammo"),
-                Stat(false, "Bullet speed", "-15%")
+                Stat(true, "Return", "Through walls"),
+                Stat(true, "Catch", "+1 ammo")
             };
         }
     }
 
     public class BoomerangEffect : StackEffect { }
 
-    /// Flies out, then steers back to the shooter's current position. Hits anything on the way.
+    /// Flies out at full range; turns back when it is about to hit a wall (or after OutTime).
+    /// On the way back it phases through terrain (RayCastTrail.mask -> ignoreWallsMask) but still hits players.
     /// Reaching the shooter = caught: the bullet vanishes (no self-hit) and the shooter gets the ammo back.
     public class BoomerangBullet : MonoBehaviour
     {
-        const float OutTime = 0.35f;
+        const float OutTime = 0.6f;
         const float CatchRadius = 1.6f;
-        const float MaxLife = 3f;
+        const float MaxLife = 3.5f;
+        static readonly Color ReturnColor = new Color(1f, 0.55f, 0.9f, 0.55f);
 
         int stacks;
-        float age;
+        float age, turnAge;
         bool returning, boosted;
         float speed;
         Player owner;
         GunAmmo ammo;
         MoveTransform move;
         ProjectileHit hit;
+        RayCastTrail trail;
 
         public void Setup(int n, Player shooter, Gun gun)
         {
@@ -58,20 +60,51 @@ namespace WildCards
         {
             move = GetComponent<MoveTransform>();
             hit = GetComponent<ProjectileHit>();
+            trail = GetComponent<RayCastTrail>();
+        }
+
+        bool WallAhead()
+        {
+            if (trail == null) return false;
+            // Bouncy builds keep bouncing; the boomerang only turns once bounces are spent (or at OutTime).
+            RayHitReflect rf = GetComponent<RayHitReflect>();
+            if (rf != null && rf.reflects > 0) return false;
+            int walls = trail.mask.value & ~trail.playerMask.value;
+            if (walls == 0) return false;
+            Vector2 v = move.velocity;
+            float spd = v.magnitude;
+            if (spd < 0.01f) return false;
+            float look = spd * Mathf.Max(Time.deltaTime, 0.016f) * 2.5f + 0.4f;
+            return Physics2D.Raycast(transform.position, v / spd, look, walls).collider != null;
+        }
+
+        void StartReturn()
+        {
+            returning = true;
+            turnAge = 0f;
+            speed = Mathf.Max(move.velocity.magnitude, 25f);
+            if (trail != null)
+            {
+                int ghost = trail.ignoreWallsMask.value != 0 ? trail.ignoreWallsMask.value : trail.playerMask.value;
+                trail.mask = ghost;
+            }
+            SpawnedAttack sa = GetComponent<SpawnedAttack>();
+            if (sa != null) { try { sa.SetColor(ReturnColor); } catch { } }
         }
 
         void Update()
         {
             if (move == null || owner == null || owner.data == null) return;
             age += Time.deltaTime;
-            if (age < OutTime || age > MaxLife) return;
+            if (age > MaxLife) return;
             if (owner.data.dead || !owner.gameObject.activeInHierarchy) return;
 
             if (!returning)
             {
-                returning = true;
-                speed = Mathf.Max(move.velocity.magnitude, 25f);
+                if (age >= OutTime || WallAhead()) StartReturn();
+                else return;
             }
+            turnAge += Time.deltaTime;
 
             Vector3 to = owner.transform.position - transform.position;
             to.z = 0f;
@@ -84,7 +117,7 @@ namespace WildCards
             }
 
             // Steer toward the shooter; turn rate ramps up so the arc stays readable.
-            float turn = Mathf.Lerp(3f, 14f, (age - OutTime) / 0.6f) * Time.deltaTime;
+            float turn = Mathf.Lerp(4f, 16f, turnAge / 0.5f) * Time.deltaTime;
             Vector3 desired = to / dist * speed;
             move.velocity = Vector3.RotateTowards(move.velocity, desired, turn, speed * 4f * Time.deltaTime);
             if (move.velocity.sqrMagnitude > 0.01f)

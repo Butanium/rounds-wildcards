@@ -15,7 +15,7 @@
 | METEOR | Hold down in the air to dive. Landing sends out a shockwave that damages and launches nearby enemies. |
 | ROCKET JUMP | Shooting pushes you away from your aim. Shoot the floor to fly. |
 | BALLOON ROUNDS | Hits pop enemies upward and make them float briefly. |
-| BOOMERANG | Bullets curve back to you. Catch them to get the ammo back. |
+| BOOMERANG | Bullets turn around at walls (or after a moment) and fly back to you through terrain, +30% damage. Catch them to get the ammo back. |
 
 ## Install (players)
 1. Install [r2modman](https://thunderstore.io/package/ebkr/r2modman/) and create a ROUNDS profile with **UnboundLib** (it pulls in BepInEx and MMHook).

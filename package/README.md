@@ -13,7 +13,7 @@
 | METEOR | Hold down in the air to dive. Landing sends out a shockwave that damages and launches nearby enemies. |
 | ROCKET JUMP | Shooting pushes you away from your aim. Shoot the floor to fly. |
 | BALLOON ROUNDS | Hits pop enemies upward and make them float briefly. |
-| BOOMERANG | Bullets curve back to you. Catch them to get the ammo back. |
+| BOOMERANG | Bullets turn around at walls (or after a moment) and fly back to you through terrain, +30% damage. Catch them to get the ammo back. |
 
 ## Testing
 `BepInEx/config/com.wildcards.rounds.cards.cfg` → `WildCardChance` (default 0.6) is the chance that each offered card is replaced by a WildCards card. Set it to 0 for normal odds.
