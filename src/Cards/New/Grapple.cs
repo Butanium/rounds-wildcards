@@ -156,8 +156,10 @@ namespace WildCards.Grapple
         }
 
         /// 0 = just used, 1 = ready. Owner-side only.
-        public float Readiness { get { return cooldown <= 0f ? 1f : 1f - cooldown / Cooldown; } }
-        public bool OnCooldown { get { return cooldown > 0f; } }
+        float cdTotal = 1f;
+        public float Readiness { get { return cooldown <= 0f ? 1f : 1f - cooldown / cdTotal; } }
+        /// Only real cooldowns (not the short miss lockout) show the ring.
+        public bool OnCooldown { get { return cooldown > 0f && cdTotal > 0.5f; } }
 
         public override void Init()
         {
@@ -170,6 +172,7 @@ namespace WildCards.Grapple
             state = St.Idle;
             flown = 0f;
             cooldown = startCooldown ? Cooldown : 0f;
+            cdTotal = startCooldown ? Cooldown : 1f;
         }
 
         // OnDisable always runs before OnDestroy (Fx.Remove uses DestroyImmediate), so the release must be sent here.
@@ -294,7 +297,10 @@ namespace WildCards.Grapple
         void Missed()
         {
             GrappleNet.Send(player, GrappleNet.Miss, head, Vector2.zero, -1);
-            ResetState(true);
+            // A miss only costs a short lockout (anti-spam), not the full cooldown.
+            ResetState(false);
+            cooldown = 0.3f;
+            cdTotal = 0.3f;
         }
 
         void YankTarget(Player target, Vector2 point)
